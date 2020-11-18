@@ -4,24 +4,17 @@ import time
 
 def worker():
     name = multiprocessing.current_process().name
-    print(name, end='')
-    for i in tqdm(range(100)):
-        time.sleep(1)
+    for i in range(10):
+        print(f"{name} now")
 
 def my_service():
     name = multiprocessing.current_process().name
-    print('\n')
-    print(name, end='')
-    for i in tqdm(range(100)):
-        time.sleep(2)
+    for i in range(10):
+        print(f"{name} now")
 
 if __name__ == '__main__':
-    worker_1 = multiprocessing.Process(name='my_service', target=my_service)
-    worker_2 = multiprocessing.Process(name='worker 1', target=worker)
+    worker_1 = multiprocessing.Process(name='worker 1', target=my_service)
+    worker_2 = multiprocessing.Process(name='worker 2', target=worker)
 
-    start = time.time()
     worker_1.start()
     worker_2.start()
-
-    if time.time() - start > 10:
-        exit()
